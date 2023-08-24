@@ -1,8 +1,8 @@
 use clap::Parser;
-use std::fs::{read_to_string};
 use std::path::PathBuf;
 
 pub mod operations;
+pub mod config;
 
 #[derive(Parser)]
 struct Cli {
@@ -10,11 +10,11 @@ struct Cli {
 }
 
 fn main() {
+    let config_content = config::get_config_content();
     let args = Cli::parse();
-    let filename = "tests\\commands.config";
 
     // Iterate through each line of the commands.config to find the appropriate for the given argument
-    for line in read_to_string(filename).unwrap().lines() {
+    for line in config_content.lines() {
         let mut tokens = line.split_whitespace();
         
         // Acquire first token and peel off ending colon to check the given command
