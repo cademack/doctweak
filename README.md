@@ -1,5 +1,10 @@
 # DocTweak
 
+Tired of opening Vim for the 8th time in 5 minutes just to flip a boolean
+in your config file? How about just to comment out a line?
+
+If so, you have come to the right place :).
+
 DocTweak is a command line tool to create quick custom commands to manipulate
 config files, specifically with .yml files in mind. DocTweak is developed in Rust
 and serves as a hobby project to learn a new language.
