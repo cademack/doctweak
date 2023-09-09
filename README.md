@@ -1,21 +1,35 @@
 # DocTweak
 
 DocTweak is a command line tool to create quick custom commands to manipulate
-config files, specifcally .yml files. DocTweak is developed in Rust and serves as a hobby project to learn a new language.
+config files, specifically with .yml files in mind. DocTweak is developed in Rust
+and serves as a hobby project to learn a new language.
 
-Currently supported operations are are:
-TOGGLE-COMMENT: comments or uncomments a line appopriately
-TOGGLE-BOOL: finds and replaces boolean values in a line with the opposite value
+## Configuration
+Custom commands are specified in a commands.config file. Each line is it's own
+command with the following format:
 
-Custom commands are specified in a commands.config file. Each line is it's own command with the following format:
 {command_name}: {OPERATION_LABEL} ({file_path}) arg1 arg2 ...
 
+The configuration file is searched for in the XDG Config directory as `doctweak.yml`.
+Determining the XDG config directory is accomplished with the
+[directories](https://docs.rs/directories/latest/directories/) crate.
+
+## Operations
+    - TOGGLE-COMMENT: comments or uncomments a line appopriately (using a `#`)
+        - TOGGLE-COMMENT (filepath) <line number>
+    - TOGGLE-BOOL: finds and replaces boolean values in a line with the opposite
+    value, ex: True <=> False, true <=> false
+        - TOGGLE-BOOL (filepath) <line number>
 
 ## TODOs:
-- Determine the best way to place config files that users need to design for their custom commands
-    - XDG directories, home directories, Windows vs Unix systems... crate: https://docs.rs/xdg/latest/xdg/
+- Enable multiple lines of change toggle bool and comments
 - Add more operations
     - SWAP [string1] [string2]
     - tbd
 - Figure out how to fully compile/not run through cargo
 - Figure out how to distribute
+
+## Changenotes
+
+- 9/8/2023: changed operations to take the vector of args, should enable more diversity
+in operations, better control logic, toggle_bool handles capitalized and uncapitalized

@@ -1,8 +1,12 @@
 use std::fs::{read_to_string, write};
-use std::path::PathBuf;
 
 
-pub fn toggle_comment_line(filepath: &PathBuf, line_number: i32) {
+pub fn toggle_comment_line(args: &Vec<String>) {
+    let filepath = args.get(2).unwrap();
+    let filepath = &filepath[1..filepath.len()-1];
+
+    let line_number = args.get(3).unwrap().parse::<i32>().unwrap();
+
     let mut out_string: String = "".to_string();
     let mut i: i32 = 0;
     for line in read_to_string(filepath).unwrap().lines() {
@@ -24,7 +28,12 @@ pub fn toggle_comment_line(filepath: &PathBuf, line_number: i32) {
     write(filepath, &out_string).expect("Unable to write file");
 }
 
-pub fn toggle_bool_line(filepath: &PathBuf, line_number: i32) {
+pub fn toggle_bool_line(args: &Vec<String>) {
+    let filepath = args.get(2).unwrap();
+    let filepath = &filepath[1..filepath.len()-1];
+
+    let line_number = args.get(3).unwrap().parse::<i32>().unwrap();
+
     let mut out_string: String = "".to_string();
     let mut i: i32 = 0;
     for line in read_to_string(filepath).unwrap().lines() {
@@ -35,6 +44,10 @@ pub fn toggle_bool_line(filepath: &PathBuf, line_number: i32) {
                 out_string.push_str(&line.replace("true", "false"))
             } else if line.contains("false") {
                 out_string.push_str(&line.replace("false", "true"))
+            } else if line.contains("True") {
+                out_string.push_str(&line.replace("True", "False"))
+            } else if line.contains("False") {
+                out_string.push_str(&line.replace("False", "True"))
             }
         } else {
             out_string.push_str(&line)
