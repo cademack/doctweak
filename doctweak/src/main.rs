@@ -11,13 +11,25 @@ fn main() {
         std::process::exit(1);
     }
     
-    let config_content = config::get_config_content();    
+    let config_content = match config::get_config_content() {
+        Some(content) => content,
+        None => {
+            print!("Configuration file cannot be found or read.\n");
+            std::process::exit(1);
+        }
+    };
 
     // Iterate through each line of the commands.config to find the appropriate for the given argument
     for line in config_content.lines() {
         let tokens: Vec<String> = line.split_whitespace().map(str::to_string).collect();
         
-        // Acquire first token and peel off ending colon to check the given command
+        if tokens.len() < 3 {
+            // not enough tokens on this line to be a valid command
+            print!("Invalid command encountered. The minimum command definition is:\n
+                    <command>: <operation> <filepath/arg1>");
+            continue;
+        }
+
         let first_token = match tokens.get(0) {
             Some(str) => str,
             None => panic!("Empty line in config file")
@@ -29,7 +41,6 @@ fn main() {
             continue;
         }
 
-        // Operation has no extra characters, so can pull it directly
         let operation = match tokens.get(1) {
             Some(str) => str,
             None => panic!("No operation on one line of config file")
