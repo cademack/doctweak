@@ -10,10 +10,15 @@ config files, specifically with .yml files in mind. DocTweak is developed in Rus
 and serves as a hobby project to learn a new language.
 
 ## Configuration
-Custom commands are specified in a commands.config file. Each line is it's own
-command with the following format:
+Custom commands are specified in a 'doctweak.config` file. This file is first
+searched for in your current working directory. If one is not found there, then
+the XDG config directory (under a doctweak directory) is searched next. The tool
+should error out early if no configuration file is found. Determining the XDG 
+config directory is accomplished with the
+[directories](https://docs.rs/directories/latest/directories/) crate.
 
-{command_name}: {OPERATION_LABEL} arg1 arg2 ...
+Commands are specified per line in 'doctweak.config' as so:
+{command_name}: {OPERATION_LABEL} {arg1} {arg2} ...
 
 The configuration file is searched for in the XDG Config directory as `doctweak.yml`.
 Determining the XDG config directory is accomplished with the
