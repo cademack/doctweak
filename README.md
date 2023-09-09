@@ -28,12 +28,19 @@ a space is added to the prefix before it is detected and added. thats how I like
 value, ex: True <=> False, true <=> false
     - TOGGLE-BOOL <filepath> <line number 1> <line number 2> ...
 
-## TODOs:
+## TODOs (in no particular order, maybe slightly in difficulty):
 - Add more operations
     - SWAP [string1] [string2]
     - tbd
-- Figure out how to fully compile/not run through cargo
-- Figure out how to distribute
+- unit tests
+- better debugging/verbosity?
+- use proper command line arg parsing, something to help build like a -h help
+behavior
+- proper configuration for the application itself. maybe custom config paths
+- builds for different OS's?
+- distribution
+- earn clout w my coworkers
+
 
 ## Changenotes
 
