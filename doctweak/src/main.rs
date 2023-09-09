@@ -5,10 +5,19 @@ pub mod config;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
+    let command_to_execute: &String;
 
     if args.len() < 2 {
         print!("No command provided.\nCorrect usage is `doctweak <command>`\n");
         std::process::exit(1);
+    } else {
+        command_to_execute = match args.get(1) {
+            Some(arg) => arg,
+            None => {
+                print!("Command cannot be read\n");
+                std::process::exit(1);
+            }
+        };
     }
     
     let config_content = match config::get_config_content() {
@@ -37,7 +46,7 @@ fn main() {
         let command = &first_token[0..first_token.len()-1];
 
         // Don't need to continue here if this is the wrong command-line
-        if !command.eq(args.get(1).unwrap()) {
+        if !command.eq(command_to_execute) {
             continue;
         }
 

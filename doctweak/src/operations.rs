@@ -2,21 +2,33 @@ use std::fs::{read_to_string, write};
 
 
 pub fn toggle_comment_line(args: &Vec<String>) {
-    let filepath = args.get(2).unwrap();
+    let filepath = args.get(2).expect("No filepath given.\n");
+    let file_content = match read_to_string(filepath) {
+        Ok(content) => content,
+        Err(_) => {
+            print!("File could not be read.\n");
+            std::process::exit(1);
+        }
+    };
 
-    let mut comment_prefix = String::from(&args[3]);
+    let mut comment_prefix = String::from(args.get(3).expect("No comment prefix given.\n"));
     comment_prefix.push(' '); // an added space is assumed to be desired, maybe a flag one day
     let prefix_length = comment_prefix.len();
 
+    if args.len() < 5 {
+        print!("No line numbers given.\n");
+        std::process::exit(1);
+    }
+
     let line_numbers: &Vec<i32> = &args[4..]
         .iter()
-        .map(|x| x.parse::<i32>().unwrap())
+        .map(|x| x.parse::<i32>().unwrap_or(-1))
         .collect();
 
 
     let mut out_string: String = "".to_string();
     let mut i: i32 = 0;
-    for line in read_to_string(filepath).unwrap().lines() {
+    for line in file_content.lines() {
         i += 1;
         
         if line_numbers.contains(&i) {
@@ -35,16 +47,28 @@ pub fn toggle_comment_line(args: &Vec<String>) {
 }
 
 pub fn toggle_bool_line(args: &Vec<String>) {
-    let filepath = args.get(2).unwrap();
+    let filepath = args.get(2).expect("No filepath given.\n");
+    let file_content = match read_to_string(filepath) {
+        Ok(content) => content,
+        Err(_) => {
+            print!("File could not be read.\n");
+            std::process::exit(1);
+        }
+    };
+
+    if args.len() < 4 {
+        print!("No line numbers given.\n");
+        std::process::exit(1);
+    }
 
     let line_numbers: &Vec<i32> = &args[3..]
         .iter()
-        .map(|x| x.parse::<i32>().unwrap())
+        .map(|x| x.parse::<i32>().unwrap_or(-1))
         .collect();
 
     let mut out_string: String = "".to_string();
     let mut i: i32 = 0;
-    for line in read_to_string(filepath).unwrap().lines() {
+    for line in file_content.lines() {
         i += 1;
         
         if line_numbers.contains(&i) {
