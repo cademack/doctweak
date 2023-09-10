@@ -1,5 +1,5 @@
-name: Cade
-power: 999
-swag: true
-trueskills: low
-MATT_STINKY???: False
+debug: True
+// cache: True
+// path: path/to/thing
+// output: False
+type: false
