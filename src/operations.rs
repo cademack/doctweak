@@ -1,7 +1,7 @@
 use std::fs::{read_to_string, write};
 
 
-pub fn toggle_comment_line(args: &Vec<String>) {
+pub fn toggle_comment(args: &Vec<String>) {
     let filepath = args.get(2).expect("No filepath given.\n");
     let file_content = match read_to_string(filepath) {
         Ok(content) => content,
@@ -30,7 +30,7 @@ pub fn toggle_comment_line(args: &Vec<String>) {
     let mut i: i32 = 0;
     for line in file_content.lines() {
         i += 1;
-        
+
         if line_numbers.contains(&i) {
             if &line[0..prefix_length] == comment_prefix {
                 out_string.push_str(&line[prefix_length..]);
@@ -46,7 +46,7 @@ pub fn toggle_comment_line(args: &Vec<String>) {
     write(filepath, &out_string).expect("Unable to write file");
 }
 
-pub fn toggle_bool_line(args: &Vec<String>) {
+pub fn toggle_bool(args: &Vec<String>) {
     let filepath = args.get(2).expect("No filepath given.\n");
     let file_content = match read_to_string(filepath) {
         Ok(content) => content,
@@ -70,7 +70,7 @@ pub fn toggle_bool_line(args: &Vec<String>) {
     let mut i: i32 = 0;
     for line in file_content.lines() {
         i += 1;
-        
+
         if line_numbers.contains(&i) {
             if line.contains("true") {
                 out_string.push_str(&line.replace("true", "false"));

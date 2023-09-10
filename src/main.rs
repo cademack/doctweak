@@ -2,6 +2,7 @@ use std::env;
 
 pub mod operations;
 pub mod config;
+pub mod tests;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -57,11 +58,11 @@ fn main() {
 
         match operation.as_str() {
             "TOGGLE-COMMENT" => {
-                operations::toggle_comment_line(&tokens);
+                operations::toggle_comment(&tokens);
                 return;
             },
             "TOGGLE-BOOL" => {
-                operations::toggle_bool_line(&tokens);
+                operations::toggle_bool(&tokens);
                 return;
             },
             &_ => return,
