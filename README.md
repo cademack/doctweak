@@ -13,7 +13,7 @@ and serves as a hobby project to learn a new language.
 Custom commands are specified in a 'doctweak.config` file. This file is first
 searched for in your current working directory. If one is not found there, then
 the XDG config directory (under a doctweak directory) is searched next. The tool
-should error out early if no configuration file is found. Determining the XDG 
+should error out early if no configuration file is found. Determining the XDG
 config directory is accomplished with the
 [directories](https://docs.rs/directories/latest/directories/) crate.
 
@@ -27,11 +27,11 @@ Determining the XDG config directory is accomplished with the
 ## Operations
 - TOGGLE-COMMENT: comments or uncomments a line appopriately with a given comment prefix.
 a space is added to the prefix before it is detected and added. thats how I like it
-    - TOGGLE-COMMENT <filepath> <comment prefix> <line number 1> <line number 2> ...
+    - TOGGLE-COMMENT [filepath] [comment prefix] <line number 1> <line number 2> ...
         + comment prefix = "#" "\\" etc.
 - TOGGLE-BOOL: finds and replaces boolean values in a line with the opposite
 value, ex: True <=> False, true <=> false
-    - TOGGLE-BOOL <filepath> <line number 1> <line number 2> ...
+    - TOGGLE-BOOL [filepath] <line number 1> <line number 2> ...
 
 ## TODOs (in no particular order, maybe slightly in difficulty):
 - Add more operations
